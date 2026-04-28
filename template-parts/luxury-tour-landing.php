@@ -89,27 +89,55 @@ $reviews = [
     ],
 ];
 
-$schema = [
-    '@context' => 'https://schema.org',
-    '@type'    => 'TravelAgency',
-    'name'     => $site_name,
-    'url'      => $site_url,
+$page_url = function_exists('get_permalink') ? get_permalink() : (isset($_SERVER['HTTP_HOST']) ? 'https://' . $_SERVER['HTTP_HOST'] . ($_SERVER['REQUEST_URI'] ?? '/') : $site_url);
+
+$item_reviewed = [
+    '@type'       => 'TravelAgency',
+    '@id'         => $site_url . '#organization',
+    'name'        => $site_name,
+    'url'         => $site_url,
     'description' => 'Premium private tours and luxury snorkeling experiences in Nusa Penida.',
-    'areaServed'  => 'Nusa Penida, Bali, Indonesia',
+    'image'       => home_url('/wp-content/uploads/2025/10/klingking-beach-activities-penidatour-ikomangartawann.webp'),
+    'telephone'   => '+' . $wa_number,
+    'priceRange'  => 'IDR 850,000 - IDR 5,000,000',
+    'areaServed'  => [
+        '@type' => 'Place',
+        'name'  => 'Nusa Penida, Bali, Indonesia',
+    ],
+    'address'     => [
+        '@type'           => 'PostalAddress',
+        'addressLocality' => 'Nusa Penida',
+        'addressRegion'   => 'Bali',
+        'addressCountry'  => 'ID',
+    ],
+];
+
+$organization_schema = $item_reviewed + [
     'aggregateRating' => [
         '@type'       => 'AggregateRating',
         'ratingValue' => '5',
         'bestRating'  => '5',
         'worstRating' => '1',
         'reviewCount' => '400',
+        'itemReviewed' => [
+            '@type' => 'TravelAgency',
+            'name'  => $site_name,
+            'url'   => $site_url,
+        ],
     ],
-    'review' => array_map(function ($r) {
+    'review' => array_map(function ($r) use ($item_reviewed) {
         return [
             '@type'         => 'Review',
             'author'        => ['@type' => 'Person', 'name' => $r['name']],
             'datePublished' => $r['date'],
             'name'          => $r['title'],
             'reviewBody'    => $r['text'],
+            'itemReviewed'  => [
+                '@type' => 'TravelAgency',
+                'name'  => $item_reviewed['name'],
+                'url'   => $item_reviewed['url'],
+                'image' => $item_reviewed['image'],
+            ],
             'reviewRating'  => [
                 '@type'       => 'Rating',
                 'ratingValue' => '5',
@@ -120,10 +148,26 @@ $schema = [
     }, $reviews),
 ];
 
+$organization_schema['@context'] = 'https://schema.org';
+
+$webpage_schema = [
+    '@context'    => 'https://schema.org',
+    '@type'       => 'WebPage',
+    'name'        => 'Luxury Nusa Penida Tour',
+    'url'         => $page_url,
+    'description' => 'Private island tours, exclusive snorkeling adventures, and premium getaway packages in Nusa Penida.',
+    'about'       => ['@id' => $site_url . '#organization'],
+];
+
+$schema_graph = [
+    '@context' => 'https://schema.org',
+    '@graph'   => [$organization_schema, $webpage_schema],
+];
+
 get_template_part('template-parts/header');
 ?>
 
-<script type="application/ld+json"><?php echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
+<script type="application/ld+json"><?php echo wp_json_encode($schema_graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
 
 <main class="bg-white text-slate-800">
 
@@ -405,6 +449,11 @@ get_template_part('template-parts/header');
                 <?php foreach ($reviews as $i => $r) : ?>
                     <article class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col<?php echo $i >= 3 ? ' lg:col-span-1 md:col-span-1' : ''; ?>"
                              itemscope itemtype="https://schema.org/Review">
+                        <div itemprop="itemReviewed" itemscope itemtype="https://schema.org/TravelAgency" style="display:none;">
+                            <meta itemprop="name" content="<?php echo esc_attr($site_name); ?>">
+                            <meta itemprop="url" content="<?php echo esc_attr($site_url); ?>">
+                            <meta itemprop="image" content="<?php echo esc_attr(home_url('/wp-content/uploads/2025/10/klingking-beach-activities-penidatour-ikomangartawann.webp')); ?>">
+                        </div>
                         <meta itemprop="datePublished" content="<?php echo esc_attr($r['date']); ?>">
                         <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" class="flex text-amber-500 fill-current mb-3">
                             <meta itemprop="ratingValue" content="5">

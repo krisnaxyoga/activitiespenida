@@ -338,7 +338,7 @@ function get_business_listings_template() {
                         <span class="business-category-google" itemprop="additionalType">
                             <?php echo esc_html($category_name); ?>
                         </span>
-                        <span class="meta-separator" aria-hidden="true">¡¤</span>
+                        <span class="meta-separator" aria-hidden="true">ï¿½ï¿½</span>
                     <?php endif; ?>
                     <?php if ($website) : ?>
                         <span class="business-url-google">
@@ -360,8 +360,11 @@ function get_business_listings_template() {
             
             <!-- Contact Tags -->
             <div class="business-tags-google">
-                <?php if ($phone) : ?>
-                    <a href="tel:<?php echo esc_attr(preg_replace('/[^\d+]/', '', $phone)); ?>" 
+                <?php
+                if (function_exists('npf_render_phone_tag')) {
+                    echo npf_render_phone_tag($phone);
+                } elseif ($phone) { ?>
+                    <a href="tel:<?php echo esc_attr(preg_replace('/[^\d+]/', '', $phone)); ?>"
                        class="business-tag-item"
                        itemprop="telephone"
                        aria-label="Call <?php echo esc_attr($phone); ?>">
@@ -370,7 +373,7 @@ function get_business_listings_template() {
                         </svg>
                         <span><?php echo esc_html($phone); ?></span>
                     </a>
-                <?php endif; ?>
+                <?php } ?>
                 
                 <?php if ($address) : ?>
                     <span class="business-tag-item" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
@@ -397,10 +400,13 @@ function get_business_listings_template() {
             
             <!-- Action Buttons -->
             <div class="business-actions-google">
-                <?php if ($phone) : ?>
-                    <a href="https://wa.me/<?php echo esc_attr(preg_replace('/[^\d+]/', '', $phone)); ?>" 
-                       class="action-btn-google whatsapp-btn" 
-                       target="_blank" 
+                <?php
+                if (function_exists('npf_render_whatsapp_button')) {
+                    echo npf_render_whatsapp_button($phone);
+                } elseif ($phone) { ?>
+                    <a href="https://wa.me/<?php echo esc_attr(preg_replace('/[^\d+]/', '', $phone)); ?>"
+                       class="action-btn-google whatsapp-btn"
+                       target="_blank"
                        rel="noopener noreferrer"
                        aria-label="Contact via WhatsApp">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -408,7 +414,7 @@ function get_business_listings_template() {
                         </svg>
                         WhatsApp
                     </a>
-                <?php endif; ?>
+                <?php } ?>
                 
                 <?php if ($google_maps) : ?>
                     <a href="<?php echo esc_url($google_maps); ?>" 

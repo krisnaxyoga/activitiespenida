@@ -1,0 +1,525 @@
+/* CSS tambahan untuk memastikan WordPress block editor berfungsi dengan baik */
+.prose {
+    /* Perbaikan untuk list WordPress blocks */
+}
+
+.prose ul {
+    list-style-type: disc !important;
+    padding-left: 2rem !important;
+    margin: 1.5rem 0 !important;
+    display: block !important;
+}
+
+.prose ol {
+    list-style-type: decimal !important;
+    padding-left: 2rem !important;
+    margin: 1.5rem 0 !important;
+    display: block !important;
+}
+
+.prose li {
+    display: list-item !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.75 !important;
+    color: #374151 !important;
+    padding-left: 0.5rem !important;
+}
+
+.prose li::marker {
+    color: #16a34a !important;
+    font-weight: bold !important;
+}
+
+/* Nested lists */
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Perbaikan untuk headings */
+.prose h2:not(.wp-block-heading h2),
+.prose .wp-block-heading h2 {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    line-height: 1.25 !important;
+}
+
+.prose h3:not(.wp-block-heading h3),
+.prose .wp-block-heading h3 {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.prose h4:not(.wp-block-heading h4),
+.prose .wp-block-heading h4,
+.prose h5:not(.wp-block-heading h5),
+.prose .wp-block-heading h5,
+.prose h6:not(.wp-block-heading h6),
+.prose .wp-block-heading h6 {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    font-weight: 600 !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* WordPress block quote */
+.prose .wp-block-quote,
+.prose blockquote {
+    border-left: 4px solid var(--tw-prose-bptgold, #2a2a2a) !important;
+    padding-left: 1.5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    background-color: #f9fafb !important;
+    border-radius: 0 0.375rem 0.375rem 0 !important;
+    font-style: italic !important;
+    margin: 1.5rem 0 !important;
+}
+
+.prose .wp-block-quote p,
+.prose blockquote p {
+    margin-bottom: 0.5rem !important;
+}
+
+.prose .wp-block-quote p:last-child,
+.prose blockquote p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* WordPress block images */
+.prose .wp-block-image,
+.prose .wp-block-media-text {
+    margin-bottom: 2rem !important;
+}
+
+.prose .wp-block-image img {
+    border-radius: 0.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    width: 100% !important;
+}
+
+.prose .wp-block-image figcaption {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    text-align: center !important;
+    font-size: 0.875rem !important;
+    margin-top: 0.5rem !important;
+    font-weight: 500 !important;
+}
+
+/* WordPress table blocks - FULL REWRITE */
+.prose .wp-block-table table,
+.prose table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.prose .wp-block-table th,
+.prose table th {
+    border: 1px solid #d1d5db !important;
+    background-color: #f9fafb !important;
+    padding: 0.75rem 1rem !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+    color: #1f2937 !important;
+}
+
+.prose .wp-block-table td,
+.prose table td {
+    border: 1px solid #d1d5db !important;
+    padding: 0.75rem 1rem !important;
+    color: #1f2937 !important;
+}
+
+/* CRITICAL: Force white text untuk semua cell dengan background inline style */
+.prose .wp-block-table tbody tr td[style*="background-color"],
+.prose .wp-block-table tbody tr th[style*="background-color"],
+.prose table tbody tr td[style*="background-color"],
+.prose table tbody tr th[style*="background-color"],
+.prose figure.wp-block-table table tbody tr td[style*="background-color"],
+.prose figure.wp-block-table table tbody tr th[style*="background-color"] {
+    color: white !important;
+}
+
+/* Specific untuk has-fixed-layout table */
+.prose .wp-block-table.has-fixed-layout tbody tr td[style],
+.prose .wp-block-table table.has-fixed-layout tbody tr td[style],
+.prose figure.wp-block-table table.has-fixed-layout tbody tr td[style] {
+    color: white !important;
+}
+
+/* Selector untuk background color gelap spesifik */
+.prose .wp-block-table tbody tr td[style*="background-color: rgb"],
+.prose .wp-block-table tbody tr td[style*="background-color:rgb"],
+.prose .wp-block-table tbody tr td[style*="background-color: #"],
+.prose .wp-block-table tbody tr td[style*="background-color:#"],
+.prose table tbody tr td[style*="background-color: rgb"],
+.prose table tbody tr td[style*="background-color:rgb"],
+.prose table tbody tr td[style*="background-color: #"],
+.prose table tbody tr td[style*="background-color:#"] {
+    color: white !important;
+}
+
+/* Untuk tr yang punya background color */
+.prose .wp-block-table tbody tr[style*="background-color"] td,
+.prose table tbody tr[style*="background-color"] td {
+    color: white !important;
+}
+
+/* WordPress color classes untuk background gelap */
+.prose .wp-block-table .has-black-background-color,
+.prose .wp-block-table .has-very-dark-gray-background-color,
+.prose .wp-block-table .has-cyan-bluish-gray-background-color,
+.prose .wp-block-table .has-vivid-cyan-blue-background-color,
+.prose table .has-black-background-color,
+.prose table .has-very-dark-gray-background-color,
+.prose table .has-cyan-bluish-gray-background-color,
+.prose table .has-vivid-cyan-blue-background-color {
+    color: white !important;
+}
+
+/* Override untuk cell dengan background hitam/gelap */
+.prose .wp-block-table td[style*="background-color: black"],
+.prose .wp-block-table td[style*="background-color:#000"],
+.prose .wp-block-table td[style*="background-color: #000"],
+.prose .wp-block-table td[style*="background-color:black"],
+.prose table td[style*="background-color: black"],
+.prose table td[style*="background-color:#000"],
+.prose table td[style*="background-color: #000"],
+.prose table td[style*="background-color:black"] {
+    color: white !important;
+}
+
+/* Deteksi warna gelap dengan kode hex #1, #2, #3 */
+.prose .wp-block-table td[style*="background-color: #1"],
+.prose .wp-block-table td[style*="background-color: #2"],
+.prose .wp-block-table td[style*="background-color: #3"],
+.prose .wp-block-table td[style*="background-color:#1"],
+.prose .wp-block-table td[style*="background-color:#2"],
+.prose .wp-block-table td[style*="background-color:#3"],
+.prose table td[style*="background-color: #1"],
+.prose table td[style*="background-color: #2"],
+.prose table td[style*="background-color: #3"],
+.prose table td[style*="background-color:#1"],
+.prose table td[style*="background-color:#2"],
+.prose table td[style*="background-color:#3"] {
+    color: white !important;
+}
+
+/* Deteksi RGB dark colors (rgb yang dimulai dengan angka kecil) */
+.prose .wp-block-table td[style*="rgb(0,"],
+.prose .wp-block-table td[style*="rgb(1,"],
+.prose .wp-block-table td[style*="rgb(2,"],
+.prose .wp-block-table td[style*="rgb(3,"],
+.prose .wp-block-table td[style*="rgb(0 ,"],
+.prose .wp-block-table td[style*="rgb(1 ,"],
+.prose .wp-block-table td[style*="rgb(2 ,"],
+.prose .wp-block-table td[style*="rgb(3 ,"],
+.prose table td[style*="rgb(0,"],
+.prose table td[style*="rgb(1,"],
+.prose table td[style*="rgb(2,"],
+.prose table td[style*="rgb(3,"],
+.prose table td[style*="rgb(0 ,"],
+.prose table td[style*="rgb(1 ,"],
+.prose table td[style*="rgb(2 ,"],
+.prose table td[style*="rgb(3 ,"] {
+    color: white !important;
+}
+
+/* WordPress paragraph spacing */
+.prose .wp-block-paragraph,
+.prose p {
+    margin-bottom: 1rem !important;
+    line-height: 1.75 !important;
+    color: #374151 !important;
+}
+
+/* WordPress code blocks */
+.prose .wp-block-code {
+    background-color: #111827 !important;
+    color: white !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    overflow-x: auto !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.prose code:not(.wp-block-code code) {
+    background-color: #f3f4f6 !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.25rem !important;
+    font-size: 0.875rem !important;
+    font-family: ui-monospace, monospace !important;
+    color: #1f2937 !important;
+}
+
+/* Strong dan emphasis */
+.prose strong {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    font-weight: 600 !important;
+}
+
+.prose em {
+    font-style: italic !important;
+    color: #4b5563 !important;
+}
+
+/* Links */
+.prose a {
+    color: var(--tw-prose-bptgold, #2a2a2a) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+}
+
+.prose a:hover {
+    color: white !important;
+    text-decoration: underline !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .prose {
+        font-size: 0.95rem !important;
+    }
+    
+    .prose h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    .prose h2 {
+        font-size: 1.375rem !important;
+    }
+    
+    .prose h3 {
+        font-size: 1.125rem !important;
+    }
+    
+    .prose ul,
+    .prose ol {
+        padding-left: 1.25rem !important;
+    }
+}
+
+/* 404 English Tailwind Styles */
+.np-404-title {
+    font-size: 6rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(to right, #ca8a04, #047857) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+@media (min-width: 768px) {
+    .np-404-title {
+        font-size: 8rem !important;
+    }
+}
+
+.np-404-subtitle {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    margin-top: 1rem !important;
+}
+
+@media (min-width: 768px) {
+    .np-404-subtitle {
+        font-size: 1.875rem !important;
+    }
+}
+
+.np-404-description {
+    color: #4b5563 !important;
+    margin-top: 0.5rem !important;
+    max-width: 36rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.np-404-search-input {
+    width: 100% !important;
+    padding: 0.75rem 1.25rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 9999px !important;
+    outline: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.np-404-search-input:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 2px #f59e0b !important;
+}
+
+.np-404-search-button {
+    position: absolute !important;
+    right: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 0.5rem 1.25rem !important;
+    background-color: #ca8a04 !important;
+    color: white !important;
+    border-radius: 9999px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s !important;
+}
+
+.np-404-search-button:hover {
+    background-color: #a16207 !important;
+}
+
+.np-404-recent-posts {
+    margin-top: 3rem !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (min-width: 768px) {
+    .np-404-recent-posts {
+        padding: 2rem !important;
+    }
+}
+
+.np-404-recent-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.np-404-recent-grid {
+    display: grid !important;
+    gap: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+    .np-404-recent-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+.np-404-article {
+    transition: transform 0.2s !important;
+}
+
+.np-404-article:hover {
+    transform: translateY(-4px) !important;
+}
+
+.np-404-thumbnail {
+    width: 100% !important;
+    height: 10rem !important;
+    object-fit: cover !important;
+    border-radius: 0.75rem !important;
+    transition: transform 0.3s !important;
+}
+
+.np-404-article:hover .np-404-thumbnail {
+    transform: scale(1.05) !important;
+}
+
+.np-404-article-title {
+    margin-top: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    transition: color 0.2s !important;
+}
+
+.np-404-article-title a {
+    text-decoration: none !important;
+}
+
+.np-404-article:hover .np-404-article-title {
+    color: #ca8a04 !important;
+}
+
+.np-404-article-date {
+    font-size: 0.875rem !important;
+    color: #6b7280 !important;
+    margin-top: 0.25rem !important;
+}
+
+.np-404-back-button {
+    margin-top: 2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem 1.5rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 9999px !important;
+    color: #374151 !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s !important;
+}
+
+.np-404-back-button:hover {
+    background-color: #ca8a04 !important;
+    color: white !important;
+    border-color: #ca8a04 !important;
+}
+
+.np-404-back-icon {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+}
+
+/* Pagination style */
+.nav-links {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin: 3rem 0 2rem !important;
+    flex-wrap: wrap !important;
+}
+
+.nav-links .page-numbers {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    color: #374151 !important;
+    border: 1px solid #e5e7eb !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.nav-links .page-numbers:hover {
+    background: #f59e0b !important;
+    color: #ffffff !important;
+    border-color: #f59e0b !important;
+    transform: translateY(-2px) !important;
+}
+
+.nav-links .page-numbers.current {
+    background: #047857 !important;
+    color: #ffffff !important;
+    border-color: #047857 !important;
+    pointer-events: none !important;
+}
+
+.nav-links .next,
+.nav-links .prev {
+    width: auto !important;
+    padding: 0 1rem !important;
+    border-radius: 9999px !important;
+}

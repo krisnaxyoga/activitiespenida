@@ -248,6 +248,16 @@ $ap_js_icons = array(
 .ap-book__map { position: absolute; inset: 0; z-index: 0; }
 .ap-book__map .leaflet-control-attribution { font-size: 10px; }
 
+/* Zoom control lives on the right (the panel owns the left/bottom) and is
+   restyled to match the theme's rounded, soft-shadow surfaces. */
+.ap-book .leaflet-top.leaflet-right { margin: 6px 6px 0 0; }
+.ap-book .leaflet-control-zoom { border: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(17,24,39,.18); }
+.ap-book .leaflet-control-zoom a {
+  width: 34px; height: 34px; line-height: 34px;
+  color: var(--ap-gray-600); border-bottom-color: var(--ap-gray-200);
+}
+.ap-book .leaflet-control-zoom a:hover { background: var(--ap-teal-50); color: var(--ap-teal-700); }
+
 /* Tabler icons render at the size given in the markup and inherit text colour. */
 .ap-i { flex: none; display: inline-block; vertical-align: -.15em; }
 
@@ -560,9 +570,6 @@ $ap_js_icons = array(
 
   /* Keep the OSM attribution clear of the sheet. */
   .ap-book .leaflet-bottom.leaflet-right { margin-bottom: 128px; }
-
-  /* Move Leaflet's zoom control to the top right so it doesn't clash with the sheet. */
-  .ap-book .leaflet-top.leaflet-left { left: auto; right: 0; }
 }
 
 /* ==========================================================================
@@ -838,11 +845,15 @@ $ap_js_icons = array(
   // -------------------------------------------------------------------------
   function initMap() {
     state.map = L.map('ap-map', {
-      zoomControl: true,
+      // The booking panel occupies the top-left on desktop and the bottom edge
+      // on mobile, so the zoom control is re-added on the right instead.
+      zoomControl: false,
       minZoom: MIN_ZOOM,
       maxBounds: AREA_BOUNDS,
       maxBoundsViscosity: 1  // hard stop: dragging cannot leave the area at all
     }).fitBounds(AREA_BOUNDS);
+
+    L.control.zoom({ position: 'topright' }).addTo(state.map);
 
     // OSM attribution is required by the tile usage policy — do not remove it.
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
